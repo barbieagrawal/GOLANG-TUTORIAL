@@ -1,6 +1,18 @@
 package main
 import "fmt"
 import "unicode/utf8"
+import (
+	"math/rand"
+	"time"
+	"sync"
+)
+
+//Goroutines
+var wg = sync.WaitGroup{}
+var dbData = []string{"id1", "id2", "id3", "id4", "id5"}
+
+//channels
+var MAX_CHICKEN_PRICE float32 = 5
 
 func main() {
 	fmt.Println("Hello World!")
@@ -23,8 +35,8 @@ func main() {
 	var myRune rune = 'a'
 	fmt.Println(myRune) //prints ascii
 
-	var i int32 //initialization not compulsory
-	fmt.Println(i) //prints default value (for int = 0)
+	var in int32 //initialization not compulsory
+	fmt.Println(in) //prints default value (for int = 0)
 	
 	//value for constants can't be changed and have to be initialized
 	const c string = "const val"
@@ -103,6 +115,25 @@ func main() {
 		fmt.Println(i, v)
 	}
 	fmt.Printf("The length of s1 is %v\n", len(s1))
+
+	//Goroutines
+
+	t0 := time.Now()
+	for i:=0; i<len(dbData); i++ {
+		wg.Add(1)
+		go dbCall(i)
+	}
+	wg.Wait()
+	fmt.Printf("\nTotal execution time: %v", time.Since(t0))
+
+	//Channels
+
+	var chickenChannel = make(chan string)
+	var websites = []string{"walmart.com", "costco.com", "wholefoods.com"}
+	for i:= range websites {
+		go checkChickenPrices(websites[i], chickenChannel)
+	}
+	sendMessage(chickenChannel)
 }
 
 func printMe() {
@@ -113,4 +144,26 @@ func intDivision(num int, den int) (int, int) {
 	var result int = num / den
 	var remainder int = num % den
 	return result, remainder
+}
+
+func dbCall(i int) {
+	var delay float32 = rand.Float32()*2000
+	time.Sleep(time.Duration(delay)*time.Millisecond)
+	fmt.Println("The result from the database is:", dbData[i])
+	wg.Done()
+}
+
+func checkChickenPrices(website string, chickenChannel chan  string) {
+	for {
+		time.Sleep(time.Second*1)
+		var chickenPrice = rand.Float32()*20
+		if chickenPrice <= MAX_CHICKEN_PRICE {
+			chickenChannel <- website
+			break
+		}
+	}
+}
+
+func sendMessage(chickenChannel chan string) {
+	fmt.Printf("\nFound a deal on chicken at %s", <-chickenChannel)
 }
