@@ -37,7 +37,9 @@ func main() {
 	var result, remainder int = intDivision(num, den)
 	fmt.Printf("The result of integer division is %v with remainder %v\n", result, remainder)
 
-	switch remainder { //conditional switch statements
+	//conditional switch statements
+
+	switch remainder { 
 	case 0:
 		fmt .Printf("The division was exact\n")
 	case 1,2: 
@@ -45,6 +47,8 @@ func main() {
 	default:
 		fmt.Printf("The division was not close\n")
 	}
+
+	//arrays 
 
 	var arr [3]int32 //by default array elements initialized to 0
 	arr[1] = 123
@@ -61,6 +65,7 @@ func main() {
 	arr3 := [...]int32{4, 5, 6}
 	fmt.Println(arr3)
 
+	//slices
 	//arrays have fixed size, slices can have variable sizes
 
 	var sl []int32 = []int32{7, 8, 9}
@@ -69,6 +74,25 @@ func main() {
 	sl = append(sl, 10)
 	fmt.Println(sl)
 	fmt.Printf("The length is %v with capacity %v\n", len(sl), cap(sl))
+
+	//maps
+
+	var m map[string]uint8 = make(map[string]uint8)
+	fmt.Println(m)
+
+	var m2 = map[string]uint8{"Adam":23, "Sarah":45}
+	fmt.Println(m2["Adam"])
+	fmt.Println(m2["Barb"]) //by deafult 0 value is printed
+
+	//for loop 
+
+	for name, age := range m2 {
+		fmt.Printf("Name: %v, Age: %v \n", name, age)
+	}
+
+	for i, v := range arr2 {
+		fmt.Printf("Index: %v, Value: %v \n", i, v)
+	}
 }
 
 func printMe() {
