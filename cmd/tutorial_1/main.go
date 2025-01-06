@@ -11,7 +11,7 @@ func main() {
 	var y float32 = 10.2
 	fmt.Println(y)
 
-	var prod float32 = float32(x) * y //typecast for arithmatic operations
+	var prod float32 = float32(x) * y //typecast for arithmetic operations
 	fmt.Println(prod) 
 
 	var s string = "Hello" + " " + "World"
@@ -93,6 +93,16 @@ func main() {
 	for i, v := range arr2 {
 		fmt.Printf("Index: %v, Value: %v \n", i, v)
 	}
+
+	//strings, runes, bytes
+
+	var s1 = "résumé"
+	var indexed = s1[1]
+	fmt.Printf("%v, %T\n", indexed, indexed)
+	for i, v := range s1 {
+		fmt.Println(i, v)
+	}
+	fmt.Printf("The length of s1 is %v\n", len(s1))
 }
 
 func printMe() {
