@@ -7,7 +7,7 @@ import (
 	"sync"
 )
 
-//Goroutines
+//goroutines
 var wg = sync.WaitGroup{}
 var dbData = []string{"id1", "id2", "id3", "id4", "id5"}
 
@@ -42,7 +42,9 @@ func main() {
 	const c string = "const val"
 	fmt.Println(c)
 
-	printMe() //function call 
+	//function call
+
+	printMe()  
 
 	var num int = 11 //intDivision function call
 	var den int = 2
@@ -116,7 +118,7 @@ func main() {
 	}
 	fmt.Printf("The length of s1 is %v\n", len(s1))
 
-	//Goroutines
+	//goroutines
 
 	t0 := time.Now()
 	for i:=0; i<len(dbData); i++ {
@@ -126,7 +128,7 @@ func main() {
 	wg.Wait()
 	fmt.Printf("\nTotal execution time: %v", time.Since(t0))
 
-	//Channels
+	//channels
 
 	var chickenChannel = make(chan string)
 	var websites = []string{"walmart.com", "costco.com", "wholefoods.com"}
